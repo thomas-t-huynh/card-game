@@ -44,6 +44,8 @@ const board = new Board({
   p2,
 });
 
+const manager = new Manager({ players: [p1, p2], board, canvas: myCanvas });
+
 p1.drawFiveCards();
 p2.drawFiveCards();
 

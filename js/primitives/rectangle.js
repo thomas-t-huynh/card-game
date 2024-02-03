@@ -18,6 +18,8 @@ class Rectangle {
     this.y2 = y + height;
     this.fillStyle = props.fillStyle;
     this.strokeStyle = props.strokeStyle;
+    this.highlightFillStyle = 'yellow';
+    this.highlight = false;
   }
 
   getMiddle() {
@@ -27,7 +29,16 @@ class Rectangle {
     };
   }
 
-  setRect({ x, y, width, height }) {
+  getIsHover({ x, y }) {
+    return x >= this.x1 && x <= this.x2 && y >= this.y1 && y <= this.y2;
+  }
+
+  setRect({
+    x = this.x1,
+    y = this.y1,
+    width = this.width,
+    height = this.height,
+  }) {
     this.width = width;
     this.height = height;
     this.x1 = x;
@@ -37,7 +48,7 @@ class Rectangle {
   }
 
   draw(ctx) {
-    ctx.fillStyle = this.fillStyle;
+    ctx.fillStyle = this.highlight ? this.highlightFillStyle : this.fillStyle;
     ctx.fillRect(this.x1, this.y1, this.width, this.height);
 
     ctx.strokeStyle = this.strokeStyle;
