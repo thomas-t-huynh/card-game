@@ -1,4 +1,4 @@
-const dummyDeck = [
+const dummyDeck1 = [
   new Summon({
     attack: 1000,
     defense: 1000,
@@ -72,13 +72,87 @@ const dummyDeck = [
   new Spell({ name: 'magic', effect: '' }),
   new Spell({ name: 'magic', effect: '' }),
   new Spell({ name: 'magic', effect: '' }),
-  new Spell({ name: 'magic', effect: '' }),
-  new Spell({ name: 'magic', effect: '' }),
-  new Trap({ name: 'trap', effect: '' }),
-  new Trap({ name: 'trap', effect: '' }),
   new Trap({ name: 'trap', effect: '' }),
   new Trap({ name: 'trap', effect: '' }),
   new Trap({ name: 'trap', effect: '' }),
 ];
-const player1Deck = new Deck(dummyDeck.slice());
-const player2Deck = new Deck(dummyDeck.slice());
+const dummyDeck2 = [
+  new Summon({
+    attack: 1000,
+    defense: 1000,
+    level: 3,
+    health: 1000,
+    name: 'monster',
+  }),
+  new Summon({
+    attack: 1000,
+    defense: 1000,
+    level: 3,
+    health: 1000,
+    name: 'monster',
+  }),
+  new Summon({
+    attack: 1000,
+    defense: 1000,
+    level: 3,
+    health: 1000,
+    name: 'monster',
+  }),
+  new Summon({
+    attack: 1000,
+    defense: 1000,
+    level: 3,
+    health: 1000,
+    name: 'monster',
+  }),
+  new Summon({
+    attack: 1000,
+    defense: 1000,
+    level: 3,
+    health: 1000,
+    name: 'monster',
+  }),
+  new Summon({
+    attack: 1000,
+    defense: 1000,
+    level: 3,
+    health: 1000,
+    name: 'monster',
+  }),
+  new Summon({
+    attack: 1000,
+    defense: 1000,
+    level: 3,
+    health: 1000,
+    name: 'monster',
+  }),
+  new Summon({
+    attack: 1000,
+    defense: 1000,
+    level: 3,
+    health: 1000,
+    name: 'monster',
+  }),
+  new Summon({
+    attack: 1000,
+    defense: 1000,
+    level: 3,
+    health: 1000,
+    name: 'monster',
+  }),
+  new Summon({
+    attack: 1000,
+    defense: 1000,
+    level: 3,
+    health: 1000,
+    name: 'monster',
+  }),
+  new Spell({ name: 'magic', effect: '' }),
+  new Spell({ name: 'magic', effect: '' }),
+  new Spell({ name: 'magic', effect: '' }),
+  new Trap({ name: 'trap', effect: '' }),
+  new Trap({ name: 'trap', effect: '' }),
+  new Trap({ name: 'trap', effect: '' }),
+];
+const player1Deck = new Deck(dummyDeck1);
+const player2Deck = new Deck(dummyDeck2);

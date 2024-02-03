@@ -28,14 +28,15 @@ class Board {
   }
 
   setUpPlayersCardsPositions() {
-    this.positionCards({ player: this.backPlayer });
-    this.positionCards({
+    this.setUpBoardCards({ player: this.backPlayer });
+    this.setUpBoardCards({
       player: this.frontPlayer,
       invert: true,
     });
+    this.setUpHand();
   }
 
-  positionCards({ player, invert = false }) {
+  setUpBoardCards({ player, invert = false }) {
     if (invert) {
       const graveyardPos = {
         x: 0,
@@ -112,51 +113,38 @@ class Board {
     this.backPlayer.tactics.draw(this.ctx);
     this.backPlayer.summons.draw(this.ctx);
     this.backPlayer.graveyard.draw(this.ctx);
+    this.backPlayer.hand.draw(this.ctx);
 
     this.frontPlayer.deck.draw(this.ctx);
     this.frontPlayer.tactics.draw(this.ctx);
     this.frontPlayer.summons.draw(this.ctx);
     this.frontPlayer.graveyard.draw(this.ctx);
-    // for (let row = 0; row < this.rows; row++) {
-    //   for (let col = 0; col < this.columns; col++) {
-    //     const x = col * this.cardWidth + this.widthOffset;
-    //     const y = row * this.cardHeight + this.heightOffset;
-    //     this.ctx.fillStyle = 'white';
-    //     this.ctx.fillRect(x, y, this.cardWidth, this.cardHeight);
-
-    //     this.ctx.strokeStyle = 'black';
-    //     this.ctx.lineWidth = 1;
-    //     this.ctx.strokeRect(x, y, this.cardWidth, this.cardHeight);
-    //   }
-    // }
+    this.frontPlayer.hand.draw(this.ctx);
   }
 
-  drawHand() {
-    const frontHand = 5;
-    const backHand = 5;
-
-    for (let col = 1; col < 1 + backHand; col++) {
+  setUpHand() {
+    for (let col = 1; col < 1 + this.backPlayer.hand.length; col++) {
       const x = col * this.cardWidth + this.widthOffset;
       const y = 0;
 
-      this.ctx.fillStyle = 'white';
-      this.ctx.fillRect(x, y, this.cardWidth, this.cardHeight);
-
-      this.ctx.strokeStyle = 'black';
-      this.ctx.lineWidth = 1;
-      this.ctx.strokeRect(x, y, this.cardWidth, this.cardHeight);
+      this.backPlayer.hand.cards[col - 1].rectangle.setRect({
+        x,
+        y,
+        width: this.cardWidth,
+        height: this.cardHeight,
+      });
     }
 
-    for (let col = 1; col < 1 + frontHand; col++) {
+    for (let col = 1; col < 1 + this.frontPlayer.hand.length; col++) {
       const x = col * this.cardWidth + this.widthOffset;
       const y = this.canvas.height - this.cardHeight;
 
-      this.ctx.fillStyle = 'white';
-      this.ctx.fillRect(x, y, this.cardWidth, this.cardHeight);
-
-      this.ctx.strokeStyle = 'black';
-      this.ctx.lineWidth = 1;
-      this.ctx.strokeRect(x, y, this.cardWidth, this.cardHeight);
+      this.frontPlayer.hand.cards[col - 1].rectangle.setRect({
+        x,
+        y,
+        width: this.cardWidth,
+        height: this.cardHeight,
+      });
     }
   }
 
@@ -169,7 +157,5 @@ class Board {
       this.boardWidth,
       this.boardHeight
     );
-
-    // this.drawHand();
   }
 }

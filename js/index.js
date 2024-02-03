@@ -11,6 +11,9 @@ const cardHeight = boardHeight / rows;
 
 const ctx = myCanvas.getContext('2d');
 
+player1Deck.shuffle();
+player2Deck.shuffle();
+
 const p1 = new Player({
   name: 'Player 1',
   deck: player1Deck,
@@ -40,6 +43,9 @@ const board = new Board({
   p1,
   p2,
 });
+
+p1.drawFiveCards();
+p2.drawFiveCards();
 
 board.setUpPlayersCardsPositions();
 

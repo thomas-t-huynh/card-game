@@ -11,8 +11,8 @@ class Deck {
 
   shuffle() {
     // fisher yates
-    let currentIndex,
-      randomIndex = this.maxCards;
+    let currentIndex = this.maxCards;
+    let randomIndex;
     while (currentIndex > 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
