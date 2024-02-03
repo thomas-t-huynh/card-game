@@ -1,5 +1,5 @@
 class Summon extends Card {
-  constructor({ name, attack, defense, health, effect, level }) {
+  constructor({ name, attack, defense, effect, level }) {
     const rectangle = new Rectangle({
       strokeStyle: 'black',
       fillStyle: 'brown',
@@ -7,7 +7,6 @@ class Summon extends Card {
     super({ name, type: 'summon', rectangle });
     this.attack = attack;
     this.defense = defense;
-    this.health = health;
     this.effect = effect;
     this.level = level;
   }

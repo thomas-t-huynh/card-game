@@ -1,8 +1,27 @@
 body {
   background: black;
-  text-align: center;
 }
 
 #myCanvas {
   background: white;
+}
+
+#phaseDisplay {
+  background: white;
+  height: 20px;
+  width: 200px;
+  margin-top: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: min-content;
+  width: min-content;
+  align-items: center;
 }
