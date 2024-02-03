@@ -23,3 +23,5 @@ that's probably it.
       - There may not be a lot of early yugioh cards that have draw phase action.
     - Implementation could involve user only allowed to click their deck to draw a card. We could track the amount of actions users can do in the manager and update it base on the phases.
 - Something I notice is that each phase will allow players to select different cards. Or this may even happen during a card effect. Having a map that shows what is allowed to intereact with might prove to be helpful down the road.
+
+- It's starting to look like each phase needs their own listeners. The event handlers are growing a lot bigger so I may need to make a class for each phase.
