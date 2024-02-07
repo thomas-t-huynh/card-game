@@ -123,7 +123,7 @@ class Board {
   }
 
   setUpHand() {
-    for (let col = 1; col < 1 + this.backPlayer.hand.length; col++) {
+    for (let col = 1; col < 1 + this.backPlayer.hand.length(); col++) {
       const x = col * this.cardWidth + this.widthOffset;
       const y = 0;
 
@@ -135,7 +135,7 @@ class Board {
       });
     }
 
-    for (let col = 1; col < 1 + this.frontPlayer.hand.length; col++) {
+    for (let col = 1; col < 1 + this.frontPlayer.hand.length(); col++) {
       const x = col * this.cardWidth + this.widthOffset;
       const y = this.canvas.height - this.cardHeight;
 

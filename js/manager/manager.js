@@ -72,14 +72,7 @@ class Manager {
       this?.currentHover?.type === 'empty' &&
       event.button === 0
     ) {
-      console.log('place monster here at slot', this.selectedSlot);
-      this.activePlayer.summons.cards[this.selectedSlot] = this.selectedCard;
-      this.activePlayer.hand.cards = this.activePlayer.hand.cards.filter(
-        (card) => card !== this.selectedCard
-      );
-      this.currentHover.rectangle.highlight = false;
-      this.selectedCard = null;
-      this.currentHover = null;
+      this.summonMonster();
       return;
     }
     // left mouse button click
@@ -92,6 +85,19 @@ class Manager {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.activePlayer.hand.setSelectedCard(this.selectedCard);
     }
+  }
+
+  summonMonster() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.activePlayer.hand.setSelectedCard(null);
+    this.activePlayer.summons.cards[this.selectedSlot] = this.selectedCard;
+    this.activePlayer.hand.cards = this.activePlayer.hand.cards.filter(
+      (card) => card !== this.selectedCard
+    );
+    this.currentHover.rectangle.highlight = false;
+    this.selectedCard = null;
+    this.currentHover = null;
+    this.board.setUpPlayersCardsPositions();
   }
 
   //* old drag and drop - maybe there will be a use for it someday.
