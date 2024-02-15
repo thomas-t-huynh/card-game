@@ -4,7 +4,7 @@ class Summon extends Card {
       strokeStyle: 'black',
       fillStyle: 'brown',
     });
-    super({ name, type: 'summon', rectangle });
+    super({ name, type: 'summon', category: 'summons', rectangle });
     this.attack = attack;
     this.defense = defense;
     this.effect = effect;

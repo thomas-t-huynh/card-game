@@ -133,7 +133,7 @@ class Board {
         width: this.cardWidth,
         height: this.cardHeight,
       });
-    }
+    } 
 
     for (let col = 1; col < 1 + this.frontPlayer.hand.length(); col++) {
       const x = col * this.cardWidth + this.widthOffset;

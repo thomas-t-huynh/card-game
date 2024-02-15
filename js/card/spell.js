@@ -4,7 +4,7 @@ class Spell extends Card {
       fillStyle: 'teal',
       strokeStyle: 'black',
     });
-    super({ name, type: 'spell', rectangle });
+    super({ name, type: 'spell', category: 'tactics', rectangle });
     this.effect = effect;
   }
 }

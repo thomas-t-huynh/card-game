@@ -35,22 +35,19 @@ class Manager {
     this.y = event.offsetY;
     let somethingHovered = false;
     if (this.selectedCard) {
-      const cardType = this.selectedCard.type;
-      if (cardType === 'summon') {
-        this.activePlayer.summons.cards.forEach((card, i) => {
-          if (
-            card.rectangle.getIsHover({ x: this.x, y: this.y }) &&
-            card.type === 'empty'
-          ) {
-            this.currentHover = card;
-            card.rectangle.highlight = true;
-            this.selectedSlot = i;
-            somethingHovered = true;
-          } else {
-            card.rectangle.highlight = false;
-          }
-        });
-      }
+      this.activePlayer[this.selectedCard.category].cards.forEach((card, i) => {
+        if (
+          card.rectangle.getIsHover({ x: this.x, y: this.y }) &&
+          card.type === 'empty'
+        ) {
+          this.currentHover = card;
+          card.rectangle.highlight = true;
+          this.selectedSlot = i;
+          somethingHovered = true;
+        } else {
+          card.rectangle.highlight = false;
+        }
+      });
     }
     this.activePlayer.hand.cards.forEach((card) => {
       if (card.rectangle.getIsHover({ x: this.x, y: this.y })) {
@@ -72,7 +69,7 @@ class Manager {
       this?.currentHover?.type === 'empty' &&
       event.button === 0
     ) {
-      this.summonMonster();
+      this.playCardOnField(this.selectedCard.category);
       return;
     }
     // left mouse button click
@@ -87,17 +84,21 @@ class Manager {
     }
   }
 
-  summonMonster() {
+  playCardOnField(category) {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.activePlayer.hand.setSelectedCard(null);
-    this.activePlayer.summons.cards[this.selectedSlot] = this.selectedCard;
+    this.activePlayer[category].cards[this.selectedSlot] = this.selectedCard;
     this.activePlayer.hand.cards = this.activePlayer.hand.cards.filter(
       (card) => card !== this.selectedCard
     );
+    this.clearSelected();
+    this.board.setUpPlayersCardsPositions();
+  }
+
+  clearSelected() {
     this.currentHover.rectangle.highlight = false;
     this.selectedCard = null;
     this.currentHover = null;
-    this.board.setUpPlayersCardsPositions();
   }
 
   //* old drag and drop - maybe there will be a use for it someday.

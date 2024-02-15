@@ -4,7 +4,7 @@ class Trap extends Card {
       fillStyle: 'purple',
       strokeStyle: 'black',
     });
-    super({ name, type: 'trap', rectangle });
+    super({ name, type: 'trap', category: 'tactics', rectangle });
     this.effect = effect;
   }
 }
