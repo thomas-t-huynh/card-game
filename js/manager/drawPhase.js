@@ -15,8 +15,12 @@ class DrawPhase {
   }
 
   removeEventListeners() {
-    this.canvas.removeEventListeners('mousemove', this.boundMouseMove);
-    this.canvas.removeEventListeners('mousedown', this.boundMouseDown);
+    this.canvas.removeEventListener('mousemove', this.boundMouseMove);
+    this.canvas.removeEventListener('mousedown', this.boundMouseDown);
+  }
+
+  setNextPhase(nextPhase) {
+    this.nextPhase = nextPhase;
   }
 
   handleMouseMove(event) {
@@ -27,6 +31,7 @@ class DrawPhase {
       this.currentHover = this.player.deck;
     } else {
       this.player.deck.rectangle.highlight = false;
+      this.currentHover = null;
     }
   }
 
@@ -34,7 +39,9 @@ class DrawPhase {
     if (this.currentHover && event.button === 0) {
       this.player.drawCard();
       this.board.setUpPlayersCardsPositions();
+      this.currentHover.rectangle.highlight = false;
       this.currentHover = null;
+      this.nextPhase();
     }
   }
 }

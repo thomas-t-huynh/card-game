@@ -45,19 +45,17 @@ const board = new Board({
 });
 
 const manager = new Manager({ players: [p1, p2], board, canvas: myCanvas });
-manager.addEventListeners();
 
 p1.drawFiveCards();
 p2.drawFiveCards();
 
 board.setUpPlayersCardsPositions();
 
-phaseDisplay.innerText = manager.getCurrentPhaseName();
-
 manager.activateCurrentPhase();
 
 function animate() {
   board.draw();
+  phaseDisplay.innerText = manager.getCurrentPhaseName();
   requestAnimationFrame(animate);
 }
 
