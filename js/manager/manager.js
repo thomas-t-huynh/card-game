@@ -4,8 +4,6 @@ class Manager {
     this.activePlayer = players[0];
     this.inactivePlayer = players[1];
     // TODO - replease w/ an array of phase classes?
-    this.phases = ['draw', 'standBy', 'main1', 'battle', 'main2', 'end'];
-    this.currentPhase = 0;
     this.board = board;
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
@@ -15,17 +13,30 @@ class Manager {
     this.selectedCard = null;
     this.selectedCards = [];
     this.selectedSlot = -1;
+    const drawPhase = new DrawPhase({
+      player: this.activePlayer,
+      board,
+      canvas,
+    });
+    // this.phases = ['draw', 'standBy', 'main1', 'battle', 'main2', 'end'];
+    this.phases = [drawPhase];
+    this.currentPhase = 0;
   }
 
   getCurrentPhaseName() {
-    return (this.currentPhaseName = this.phases[this.currentPhase]);
+    return this.phases[this.currentPhase].name;
   }
 
   addEventListeners() {
-    this.boundMouseMove = this.handleMouseMove.bind(this);
-    this.boundMouseDown = this.handleMouseDown.bind(this);
-    this.canvas.addEventListener('mousemove', this.boundMouseMove);
-    this.canvas.addEventListener('mousedown', this.boundMouseDown);
+    // this.boundMouseMove = this.handleMouseMove.bind(this);
+    // this.boundMouseDown = this.handleMouseDown.bind(this);
+    // this.canvas.addEventListener('mousemove', this.boundMouseMove);
+    // this.canvas.addEventListener('mousedown', this.boundMouseDown);
+  }
+
+  removeEventListeners() {
+    // this.canvas.removeEventListeners('mousemove', this.boundMouseMove);
+    // this.canvas.removeEventListeners('mousedown', this.boundMouseDown);
   }
 
   //* main phase 1 & main phase 2 event handlers - tack on tributes later.
@@ -64,6 +75,7 @@ class Manager {
   }
 
   handleMouseDown(event) {
+    // play selected card on empty slot
     if (
       this.selectedCard &&
       this?.currentHover?.type === 'empty' &&
@@ -99,6 +111,20 @@ class Manager {
     this.currentHover.rectangle.highlight = false;
     this.selectedCard = null;
     this.currentHover = null;
+  }
+
+  activateCurrentPhase() {
+    this.phases[this.currentPhase].addEventListeners();
+  }
+
+  deactivateCurrentPhase() {
+    this.phases[this.currentPhase].removeEventListeners();
+  }
+
+  nextPhase() {
+    this.currentPhase = (this.currentPhase + 1) % this.phases.length;
+    this.deactivateCurrentPhase();
+    this.activateCurrentPhase();
   }
 
   //* old drag and drop - maybe there will be a use for it someday.

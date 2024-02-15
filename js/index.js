@@ -54,6 +54,8 @@ board.setUpPlayersCardsPositions();
 
 phaseDisplay.innerText = manager.getCurrentPhaseName();
 
+manager.activateCurrentPhase();
+
 function animate() {
   board.draw();
   requestAnimationFrame(animate);

@@ -9,6 +9,10 @@ class Player {
     this.hand = new Hand();
   }
 
+  drawCard() {
+    this.hand.push(this.deck.drawCard());
+  }
+
   drawFiveCards() {
     for (let i = 0; i < 5; i++) {
       const card = this.deck.drawCard();
