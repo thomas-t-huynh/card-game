@@ -15,6 +15,7 @@ class Manager {
       hasSummoned: false,
       activePlayer: players[0],
       inactivePlayer: players[1],
+      firstTurn: true,
       setHasSummoned(value) {
         this.hasSummoned = value;
       },
@@ -23,6 +24,7 @@ class Manager {
         const temp = this.activePlayer;
         this.activePlayer = this.inactivePlayer;
         this.inactivePlayer = temp;
+        this.firstTurn = false;
       },
     };
 
@@ -51,6 +53,9 @@ class Manager {
     this.currentPhase = 0;
 
     this.assignNextPhases();
+
+    this.boundHandleMouseMove = this.handleMouseMove.bind(this);
+    this.canvas.addEventListener('mousemove', this.boundHandleMouseMove);
   }
 
   getCurrentPhaseName() {
@@ -80,31 +85,26 @@ class Manager {
   }
 
   //* old drag and drop - maybe there will be a use for it someday.
-  // handleMouseMove(event) {
-  //   this.x = event.offsetX;
-  //   this.y = event.offsetY;
-  //   if (this.onDrag) {
-  //     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  //     this.currentHover.rectangle.setRect({
-  //       x: this.x - this.currentHover.rectangle.width / 2,
-  //       y: this.y - this.currentHover.rectangle.height / 2,
-  //     });
-  //     return;
-  //   }
-  //   let somethingSelected = false;
-  //   this.activePlayer.hand.cards.forEach((card) => {
-  //     if (card.rectangle.getIsHover({ x: this.x, y: this.y })) {
-  //       card.rectangle.highlight = true;
-  //       this.currentHover = card;
-  //       somethingSelected = true;
-  //     } else {
-  //       card.rectangle.highlight = false;
-  //     }
-  //   });
-  //   if (!somethingSelected) {
-  //     this.currentHover = null;
-  //   }
-  // }
+  handleMouseMove(event) {
+    this.x = event.offsetX;
+    this.y = event.offsetY;
+    this.currentHover = null;
+    this.state.activePlayer.hand.cards.forEach(this.handleSetCurrentHover);
+    this.board.frontPlayer.summons.cards.forEach(this.handleSetCurrentHover);
+    if (!this.currentHover) {
+      cardInfoUi.innerText = '';
+    }
+  }
+
+  handleSetCurrentHover = (card) => {
+    if (
+      card.rectangle.getIsHover({ x: this.x, y: this.y }) &&
+      card.type !== 'empty'
+    ) {
+      this.currentHover = card;
+      cardInfoUi.innerText = `type: ${this.currentHover.type},  name: ${this.currentHover.name}`;
+    }
+  };
 
   // handleMouseDown() {
   //   if (this.onDrag) {
