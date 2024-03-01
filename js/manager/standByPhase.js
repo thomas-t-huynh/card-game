@@ -1,16 +1,13 @@
-class StandByPhase {
-  constructor({ player, board, canvas }) {
-    this.player = player;
-    this.board = board;
-    this.canvas = canvas;
-    this.ctx = canvas.getContext('2d');
+class StandByPhase extends Phase {
+  constructor({ state, board, canvas }) {
+    super({ state, board, canvas });
     this.name = 'Stand By';
     this.currentHover = null;
   }
   addEventListeners() {
     setTimeout(() => {
       this.nextPhase();
-    }, 2000);
+    }, 1000);
     // this.boundMouseMove = this.handleMouseMove.bind(this);
     // this.boundMouseDown = this.handleMouseDown.bind(this);
     // this.canvas.addEventListener('mousemove', this.boundMouseMove);
@@ -20,9 +17,5 @@ class StandByPhase {
   removeEventListeners() {
     // this.canvas.removeEventListener('mousemove', this.boundMouseMove);
     // this.canvas.removeEventListener('mousedown', this.boundMouseDown);
-  }
-
-  setNextPhase(nextPhase) {
-    this.nextPhase = nextPhase;
   }
 }

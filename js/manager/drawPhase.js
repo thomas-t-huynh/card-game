@@ -1,8 +1,6 @@
-class DrawPhase {
-  constructor({ player, board, canvas }) {
-    this.player = player;
-    this.board = board;
-    this.canvas = canvas;
+class DrawPhase extends Phase {
+  constructor({ state, board, canvas }) {
+    super({ state, board, canvas });
     this.ctx = canvas.getContext('2d');
     this.name = 'Draw';
     this.currentHover = null;
@@ -19,25 +17,26 @@ class DrawPhase {
     this.canvas.removeEventListener('mousedown', this.boundMouseDown);
   }
 
-  setNextPhase(nextPhase) {
-    this.nextPhase = nextPhase;
-  }
-
   handleMouseMove(event) {
     this.x = event.offsetX;
     this.y = event.offsetY;
-    if (this.player.deck.rectangle.getIsHover({ x: this.x, y: this.y })) {
-      this.player.deck.rectangle.highlight = true;
-      this.currentHover = this.player.deck;
+    if (
+      this.state.activePlayer.deck.rectangle.getIsHover({
+        x: this.x,
+        y: this.y,
+      })
+    ) {
+      this.state.activePlayer.deck.rectangle.highlight = true;
+      this.currentHover = this.state.activePlayer.deck;
     } else {
-      this.player.deck.rectangle.highlight = false;
+      this.state.activePlayer.deck.rectangle.highlight = false;
       this.currentHover = null;
     }
   }
 
   handleMouseDown(event) {
     if (this.currentHover && event.button === 0) {
-      this.player.drawCard();
+      this.state.activePlayer.drawCard();
       this.board.setUpPlayersCardsPositions();
       this.currentHover.rectangle.highlight = false;
       this.currentHover = null;

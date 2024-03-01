@@ -1,8 +1,6 @@
 class Manager {
   constructor({ players, board, canvas }) {
     this.players = players;
-    this.activePlayer = players[0];
-    this.inactivePlayer = players[1];
     // TODO - replease w/ an array of phase classes?
     this.board = board;
     this.canvas = canvas;
@@ -13,21 +11,41 @@ class Manager {
     this.selectedCard = null;
     this.selectedCards = [];
     this.selectedSlot = -1;
+    this.state = {
+      hasSummoned: false,
+      activePlayer: players[0],
+      inactivePlayer: players[1],
+      setHasSummoned(value) {
+        this.hasSummoned = value;
+      },
+      resetState() {
+        this.hasSummoned = false;
+        const temp = this.activePlayer;
+        this.activePlayer = this.inactivePlayer;
+        this.inactivePlayer = temp;
+      },
+    };
+
     const drawPhase = new DrawPhase({
-      player: this.activePlayer,
+      state: this.state,
       board,
       canvas,
     });
     const standyByPhase = new StandByPhase({
-      player: this.activePlayer,
+      state: this.state,
       board,
       canvas,
     });
     const mainPhase1 = new MainPhase({
-      player: this.activePlayer,
+      state: this.state,
       board,
       canvas,
     });
+    // const battlePhase = new BattlePhase({
+    //   state: this.state,
+    //   board,
+    //   canvas,
+    // });
     // this.phases = ['draw', 'standBy', 'main1', 'battle', 'main2', 'end'];
     this.phases = [drawPhase, standyByPhase, mainPhase1];
     this.currentPhase = 0;
@@ -50,6 +68,9 @@ class Manager {
   nextPhase() {
     this.deactivateCurrentPhase();
     this.currentPhase = (this.currentPhase + 1) % this.phases.length;
+    if (this.currentPhase === 0) {
+      this.state.resetState();
+    }
     this.activateCurrentPhase();
   }
 

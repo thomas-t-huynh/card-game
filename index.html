@@ -9,7 +9,10 @@
   <body>
     <div class="container">
       <canvas id="myCanvas"></canvas>
-      <div id="phaseDisplay"></div>
+      <div class="bottomUi">
+        <div id="phaseDisplay"></div>
+        <button id="endButton">End Phase</button>
+      </div>
     </div>
 
     <script src="js/primitives//rectangle.js"></script>
@@ -26,9 +29,11 @@
     <script src="js/player/player.js"></script>
     <script src="js/board/board.js"></script>
     <script src="js/data/data.js"></script>
+    <script src="js/manager/Phase.js"></script>
     <script src="js/manager/drawPhase.js"></script>
     <script src="js/manager/standByPhase.js"></script>
     <script src="js/manager/mainPhase.js"></script>
+    <script src="js/manager/battlePhase.js"></script>
     <script src="js/manager/manager.js"></script>
     <script src="js/index.js"></script>
   </body>

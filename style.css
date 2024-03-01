@@ -25,3 +25,16 @@ body {
   width: min-content;
   align-items: center;
 }
+
+.container .bottomUi {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.container .bottomUi #endButton {
+  position: absolute;
+  margin-top: 10px;
+  right: 0;
+}
