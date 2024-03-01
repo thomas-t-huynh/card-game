@@ -91,6 +91,9 @@ class Manager {
     this.currentHover = null;
     this.state.activePlayer.hand.cards.forEach(this.handleSetCurrentHover);
     this.board.frontPlayer.summons.cards.forEach(this.handleSetCurrentHover);
+    this.board.frontPlayer.tactics.cards.forEach(this.handleSetCurrentHover);
+    this.board.backPlayer.summons.cards.forEach(this.handleSetCurrentHover);
+    this.board.backPlayer.tactics.cards.forEach(this.handleSetCurrentHover);
     if (!this.currentHover) {
       cardInfoUi.innerText = '';
     }
