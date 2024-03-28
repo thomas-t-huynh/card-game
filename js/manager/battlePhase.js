@@ -55,7 +55,7 @@ class BattlePhase extends Phase {
   handleMouseDown(event) {
     if (
       this.selectedCard &&
-      this?.currentHover?.type === 'summon' &&
+      this.state.inactivePlayer.summons.cards.includes(this.currentHover) &&
       event.button === 0
     ) {
       this.handleSummonBattle(this.currentHover);
@@ -72,7 +72,6 @@ class BattlePhase extends Phase {
         this.selectedCard = this.currentHover;
         this.selectedIndex = this.currentHoverIndex;
       }
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.state.activePlayer.hand.setSelectedCard(this.selectedCard);
     }
   }
@@ -80,16 +79,32 @@ class BattlePhase extends Phase {
   handleSummonBattle(enemySummon) {
     console.log('BATTLE!');
     if (enemySummon.attack > this.selectedCard.attack) {
-      // this.state.activePlayer.summons[]
+      this.state.activePlayer.summons.cards[this.selectedIndex] = new Empty();
     } else if (enemySummon.attack < this.selectedCard.attack) {
+      this.state.inactivePlayer.summons.cards[this.currentHoverIndex] =
+        new Empty();
     } else {
+      this.state.inactivePlayer.summons.cards[this.currentHoverIndex] =
+        new Empty();
+      this.state.activePlayer.summons.cards[this.selectedIndex] = new Empty();
     }
+    this.currentHover.rectangle.highlight = false;
+    this.clearSelectedCards();
+    this.board.setUpPlayersCardsPositions();
+    console.log(this.state);
   }
 
   handleEndPhase() {
+    this.state.activePlayer.summons.clearCardHighlight();
+    this.state.inactivePlayer.summons.clearCardHighlight();
+    this.clearSelectedCards();
+    this.nextPhase();
+  }
+
+  clearSelectedCards() {
     this.currentHover = null;
     this.selectedIndex = -1;
     this.currentHoverIndex = -1;
-    this.nextPhase();
+    this.selectedCard = null;
   }
 }

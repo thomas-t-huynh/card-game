@@ -76,13 +76,11 @@ class MainPhase extends Phase {
       } else {
         this.selectedCard = this.currentHover;
       }
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.state.activePlayer.hand.setSelectedCard(this.selectedCard);
     }
   }
 
   playCardOnField(category) {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.state.activePlayer.hand.setSelectedCard(null);
     this.state.activePlayer[category].cards[this.selectedSlot] =
       this.selectedCard;

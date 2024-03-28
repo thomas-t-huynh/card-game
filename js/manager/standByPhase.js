@@ -7,7 +7,7 @@ class StandByPhase extends Phase {
   addEventListeners() {
     setTimeout(() => {
       this.nextPhase();
-    }, 1000);
+    }, 100);
     // this.boundMouseMove = this.handleMouseMove.bind(this);
     // this.boundMouseDown = this.handleMouseDown.bind(this);
     // this.canvas.addEventListener('mousemove', this.boundMouseMove);

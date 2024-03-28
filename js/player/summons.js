@@ -10,4 +10,8 @@ class Summons {
   draw(ctx) {
     this.cards.forEach((card) => card.rectangle.draw(ctx));
   }
+
+  clearCardHighlight() {
+    this.cards.forEach((card) => (card.rectangle.highlight = false));
+  }
 }

@@ -133,7 +133,7 @@ class Board {
         width: this.cardWidth,
         height: this.cardHeight,
       });
-    } 
+    }
 
     for (let col = 1; col < 1 + this.frontPlayer.hand.length(); col++) {
       const x = col * this.cardWidth + this.widthOffset;
@@ -149,6 +149,7 @@ class Board {
   }
 
   draw() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.drawBoard();
     this.ctx.strokeStyle = 'red';
     this.ctx.strokeRect(

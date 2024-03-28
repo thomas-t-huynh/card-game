@@ -105,7 +105,11 @@ class Manager {
       card.type !== 'empty'
     ) {
       this.currentHover = card;
-      cardInfoUi.innerText = `type: ${this.currentHover.type},  name: ${this.currentHover.name}`;
+      const summonInfo =
+        card.type === 'summon'
+          ? `attack: ${card.attack}, defense: ${card.defense}`
+          : '';
+      cardInfoUi.innerText = `type: ${card.type},  name: ${card.name} ${summonInfo}`;
     }
   };
 
