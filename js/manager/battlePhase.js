@@ -67,7 +67,6 @@ class BattlePhase extends Phase {
         this.selectedCard.rectangle.highlight = false;
         this.selectedCard = null;
         this.selectedIndex = -1;
-        console.log('deselect');
       } else {
         this.selectedCard = this.currentHover;
         this.selectedIndex = this.currentHoverIndex;
@@ -77,7 +76,6 @@ class BattlePhase extends Phase {
   }
 
   handleSummonBattle(enemySummon) {
-    console.log('BATTLE!');
     if (enemySummon.attack > this.selectedCard.attack) {
       this.state.activePlayer.summons.cards[this.selectedIndex] = new Empty();
     } else if (enemySummon.attack < this.selectedCard.attack) {
@@ -91,7 +89,6 @@ class BattlePhase extends Phase {
     this.currentHover.rectangle.highlight = false;
     this.clearSelectedCards();
     this.board.setUpPlayersCardsPositions();
-    console.log(this.state);
   }
 
   handleEndPhase() {

@@ -9,9 +9,16 @@ class MainPhase extends Phase {
     this.boundMouseMove = this.handleMouseMove.bind(this);
     this.boundMouseDown = this.handleMouseDown.bind(this);
     this.boundEndButtonClick = this.handleEndPhase.bind(this);
+    this.boundPositionCardToAttack = this.positionCardToAttack.bind(this);
+    this.boundPositionCardToDefense = this.positionCardToDefense.bind(this);
     this.canvas.addEventListener('mousemove', this.boundMouseMove);
     this.canvas.addEventListener('mousedown', this.boundMouseDown);
     endButton.addEventListener('click', this.boundEndButtonClick);
+    attackPositionBtn.addEventListener('click', this.boundPositionCardToAttack);
+    defensePositionBtn.addEventListener(
+      'click',
+      this.boundPositionCardToDefense
+    );
   }
 
   removeEventListeners() {
@@ -42,6 +49,8 @@ class MainPhase extends Phase {
         }
       );
     }
+
+    // find a card to select
     this.state.activePlayer.hand.cards.forEach((card) => {
       if (card.rectangle.getIsHover({ x: this.x, y: this.y })) {
         if (this.state.hasSummoned && card.type === 'summon') {
@@ -71,10 +80,12 @@ class MainPhase extends Phase {
     }
     // left mouse button click
     if (this.currentHover && event.button === 0) {
+      this.hideToolTip();
       if (this.selectedCard === this.currentHover) {
         this.selectedCard = null;
       } else {
         this.selectedCard = this.currentHover;
+        this.currentHover.type === 'summon' && this.showToolTip();
       }
       this.state.activePlayer.hand.setSelectedCard(this.selectedCard);
     }
@@ -103,5 +114,24 @@ class MainPhase extends Phase {
     this.currentHover.rectangle.highlight = false;
     this.selectedCard = null;
     this.currentHover = null;
+  }
+
+  showToolTip() {
+    summonToolTip.style.display = 'flex';
+    summonToolTip.style.top = `${this.y}px`;
+    summonToolTip.style.left = `${this.board.widthOffset + this.x}px`;
+  }
+
+  hideToolTip() {
+    summonToolTip.style.display = 'none';
+  }
+
+  positionCardToAttack() {
+    this.selectedCard.position = 'attack';
+    this.selectedCard.faceUp = true;
+  }
+  positionCardToDefense() {
+    this.selectedCard.position = 'defense';
+    this.selectedCard.faceUp = false;
   }
 }

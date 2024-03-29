@@ -45,3 +45,18 @@ body {
   margin-top: 10px;
   right: 0;
 }
+
+#summonToolTip {
+  position: absolute;
+  background: white;
+  flex-direction: column;
+  width:100px;
+  height:100px;
+  justify-content: center; 
+  align-items: center;
+  gap: 10px 0;
+}
+
+#summonToolTip button {
+  width: 75px;
+}
