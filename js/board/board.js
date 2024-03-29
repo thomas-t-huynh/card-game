@@ -36,6 +36,7 @@ class Board {
     this.setUpHand();
   }
 
+  // positions the drawing of cards
   setUpBoardCards({ player, invert = false }) {
     if (invert) {
       const graveyardPos = {

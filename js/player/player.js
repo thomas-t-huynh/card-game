@@ -1,6 +1,7 @@
 class Player {
   constructor({ deck, graveyard, name, lifePoints = 8000, summons, tactics }) {
     this.lifePoints = lifePoints;
+    deck.cards.forEach((card) => (card.owner = name));
     this.deck = deck;
     this.graveyard = graveyard;
     this.name = name;

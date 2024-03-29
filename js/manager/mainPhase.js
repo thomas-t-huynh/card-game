@@ -31,6 +31,9 @@ class MainPhase extends Phase {
   handleMouseMove(event) {
     this.x = event.offsetX;
     this.y = event.offsetY;
+    this.pageX = event.pageX;
+    this.pageY = event.pageY;
+    // console.log(event);
     let somethingHovered = false;
     if (this.selectedCard) {
       this.state.activePlayer[this.selectedCard.category].cards.forEach(
@@ -118,8 +121,8 @@ class MainPhase extends Phase {
 
   showToolTip() {
     summonToolTip.style.display = 'flex';
-    summonToolTip.style.top = `${this.y}px`;
-    summonToolTip.style.left = `${this.board.widthOffset + this.x}px`;
+    summonToolTip.style.top = `${this.pageY}px`;
+    summonToolTip.style.left = `${this.pageX}px`;
   }
 
   hideToolTip() {

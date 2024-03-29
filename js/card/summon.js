@@ -10,6 +10,5 @@ class Summon extends Card {
     this.effect = effect;
     this.level = level;
     this.position = 'attack'; // attack or defense
-    this.faceUp = false;
   }
 }

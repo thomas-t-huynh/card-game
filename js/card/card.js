@@ -4,5 +4,6 @@ class Card {
     this.type = type;
     this.rectangle = rectangle;
     this.category = category;
+    this.faceUp = true;
   }
 }

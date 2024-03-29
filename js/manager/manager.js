@@ -104,10 +104,17 @@ class Manager {
       card.rectangle.getIsHover({ x: this.x, y: this.y }) &&
       card.type !== 'empty'
     ) {
+      // set card shows no info
       this.currentHover = card;
+      if (!card.faceUp && this.state.activePlayer.name !== card.owner) {
+        cardInfoUi.innerText = 'Card is face down';
+        return;
+      }
       const summonInfo =
         card.type === 'summon'
-          ? `attack: ${card.attack}, defense: ${card.defense}`
+          ? `attack: ${card.attack}, defense: ${card.defense}, position: ${
+              card.position
+            } ${card.faceUp ? 'face up' : 'face down'}`
           : '';
       cardInfoUi.innerText = `type: ${card.type},  name: ${card.name} ${summonInfo}`;
     }
